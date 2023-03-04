@@ -20,3 +20,11 @@ jobs:
       - name: Run your tests
         run: npx playwright test
       - run: ls
+      - run: sudo docker cp playwright-report playwright-report 
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 30
