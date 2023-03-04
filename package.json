@@ -1,0 +1,21 @@
+{
+  "name": "playwright_playground",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avinashpoptani/playwright_playground.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avinashpoptani/playwright_playground/issues"
+  },
+  "homepage": "https://github.com/avinashpoptani/playwright_playground#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  }
+}
