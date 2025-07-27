@@ -17,7 +17,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
+        run: npx playwright install --with-deps chromium webkit
       - name: Run Playwright tests
         run: npx playwright test
 
@@ -55,6 +55,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
-          github_token: $
-          publish_branch: test-automation-report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: allure-history
+          publish_branch: test-automation-report
+          force_orphan: true  
