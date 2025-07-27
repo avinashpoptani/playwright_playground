@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1501","has title","webkit","Sun Jul 27 10:47:17 UTC 2025","passed","Sun Jul 27 10:47:18 UTC 2025","","example.spec.ts","",""
+"","306","has title","chromium","Sun Jul 27 10:47:15 UTC 2025","passed","Sun Jul 27 10:47:16 UTC 2025","","example.spec.ts","",""
+"","335","get started link","chromium","Sun Jul 27 10:47:16 UTC 2025","passed","Sun Jul 27 10:47:16 UTC 2025","","example.spec.ts","",""
+"","1428","get started link","webkit","Sun Jul 27 10:47:19 UTC 2025","passed","Sun Jul 27 10:47:20 UTC 2025","","example.spec.ts","",""
