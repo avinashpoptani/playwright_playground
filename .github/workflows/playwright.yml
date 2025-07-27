@@ -30,6 +30,18 @@ jobs:
           retention-days: 30
           
 
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: 17
+          
+      - name: Install Allure CLI via npm
+        if: always()
+        run: |
+          npm install -g allure-commandline
+          allure --version
       - name: Load test report history
         uses: actions/checkout@v4
         if: always()
@@ -37,14 +49,45 @@ jobs:
         with:
           ref: test-automation-report
           path: gh-pages
-
-      - name: Build test report
-        uses: simple-elf/allure-report-action@v1.7
+          
+      - name: Build test report manually
         if: always()
-        with:
-          gh_pages: gh-pages
-          allure_history: allure-history
-          allure_results: allure-results
+        run: |
+          echo "=== Building Allure report manually ==="
+          
+          # Create directories
+          mkdir -p allure-history
+          mkdir -p allure-report
+          
+          # Copy history from previous runs if it exists
+          if [ -d "gh-pages/last-history" ]; then
+            echo "Copying existing history..."
+            mkdir -p allure-results/history
+            cp -r gh-pages/last-history/* allure-results/history/ || true
+          fi
+          
+          # Create executor.json (same as the action does)
+          echo '{"name":"GitHub Actions","type":"github","reportName":"Allure Report with history",' > allure-results/executor.json
+          echo "\"buildUrl\":\"${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}\"," >> allure-results/executor.json
+          echo "\"buildName\":\"GitHub Actions Run #${{ github.run_id }}\",\"buildOrder\":\"${{ github.run_number }}\"}" >> allure-results/executor.json
+          
+          # Generate Allure report
+          echo "Generating Allure report..."
+          allure generate --clean allure-results -o allure-report
+          
+          # Copy report to history structure
+          mkdir -p allure-history/${{ github.run_number }}
+          cp -r allure-report/* allure-history/${{ github.run_number }}/
+          
+          # Update last-history
+          mkdir -p allure-history/last-history
+          cp -r allure-report/history/* allure-history/last-history/ || true
+          
+          # Create index.html redirect
+          echo "<!DOCTYPE html><meta charset=\"utf-8\"><meta http-equiv=\"refresh\" content=\"0; URL=./${{ github.run_number }}/index.html\">" > allure-history/index.html
+          
+          echo "=== Report generation complete ==="
+          ls -la allure-history/ || echo "No allure-history found"
       
       - name: Check built report
         run: ls -la allure-history
