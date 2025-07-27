@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/avinashpoptani/playwright_playground#readme",
   "devDependencies": {
-    "@playwright/test": "^1.31.2"
+    "@playwright/test": "^1.31.2",
+    "allure-playwright": "^3.3.2"
   }
 }
