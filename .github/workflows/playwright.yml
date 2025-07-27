@@ -27,20 +27,4 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
-      # Export all traces as trace viewers
-      - name: Export traces to viewer format
-        run: |
-          mkdir -p trace-viewer
-          find . -name trace.zip | while read trace; do
-            npx playwright show-trace "$trace" --output=trace-viewer
-          done
 
-      # Deploy the trace viewer to a branch
-      - name: Publish trace viewer to test-automation-report branch
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./trace-viewer
-          publish_branch: test-automation-report
-          force_orphan: true
-          commit_message: "chore: publish Playwright trace viewer"
