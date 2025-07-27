@@ -17,11 +17,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install allure-playwright
+      - name: Initialize empty test-automation-report branch
+        if: github.ref == 'refs/heads/main'  # Only on main
         run: |
-          npm install -D allure-playwright
+          git checkout --orphan test-automation-report
+          git rm -rf .
+          echo "# Initial commit" > README.md
+          git add README.md
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add package.json package-lock.json
-          git commit -m "chore: add allure-playwright"
-          git push origin HEAD
+          git commit -m "init empty report branch"
+          git push origin test-automation-report
