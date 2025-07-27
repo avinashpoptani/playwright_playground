@@ -31,7 +31,7 @@ jobs:
           
 
       - name: Load test report history
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         if: always()
         continue-on-error: true
         with:
@@ -42,7 +42,7 @@ jobs:
         uses: simple-elf/allure-report-action@v1.7
         if: always()
         with:
-          gh_pages: ''
+          gh_pages: gh-pages
           allure_history: allure-history
           allure_results: allure-results
       
