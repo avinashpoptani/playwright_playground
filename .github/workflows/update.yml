@@ -1,0 +1,27 @@
+name: Add allure-playwright dependency
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add-dependency:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install allure-playwright
+        run: |
+          npm install -D allure-playwright
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add package.json package-lock.json
+          git commit -m "chore: add allure-playwright"
+          git push origin HEAD
