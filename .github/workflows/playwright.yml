@@ -31,11 +31,6 @@ jobs:
           
 
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: zulu
-          java-version: 17
           
       - name: Install Allure CLI via npm
         if: always()
